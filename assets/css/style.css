@@ -1,0 +1,46 @@
+body { margin: 0; font-family: sans-serif; background-color: #f0f2f5; }
+
+.container { display: flex; height: 100vh; }
+
+/* サイドバー */
+.sidebar {
+    width: 280px;
+    background: white;
+    padding: 20px;
+    border-right: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.input-section label { display: block; font-weight: bold; margin-bottom: 10px; }
+.input-section input { width: 100%; padding: 8px; border: 1px solid #ccc; }
+
+.display-section { font-size: 18px; font-weight: bold; border-top: 1px solid #eee; padding-top: 20px; }
+
+.btn-primary {
+    background: #004471;
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+/* グラフエリア */
+.main-view { flex: 1; padding: 20px; overflow-y: auto; }
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列表示 */
+    gap: 20px;
+}
+
+.chart-container {
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: 350px;
+}

@@ -17,14 +17,18 @@ async function uploadData() {
         const data = await response.json();
 
         if (data.status === 'success') {
-            renderChart('students_total_chart', '新入生ご本人様の合計', ['合計'], [data.students_total]);
-            renderChart('parents_total_chart', '保護者の方の合計', ['合計'], [data.parents_total]);
-            renderChart('satisfaction_chart', '説明会の満足度', ['平均'], [data.satisfaction]);
-            renderChart('satisfaction_students_chart', '新入生ご本人様の満足度', ['平均'], [data.satisfaction_students]);
-            renderChart('satisfaction_parents_chart', '保護者の方の満足度', ['平均'], [data.satisfaction_parents]);
-            renderChart('fell_time_chart', '説明会の所要時間', ['平均'], [data.fell_time]);
-            renderChart('fell_time_students_chart', '新入生ご本人様の所要時間', ['平均'], [data.fell_time_students]);
-            renderChart('fell_time_parents_chart', '保護者の方の所要時間', ['平均'], [data.fell_time_parents]);
+            document.getElementById('display_students_total').innerText = data.students_total;
+            document.getElementById('display_parents_total').innerText = data.parents_total;
+
+
+            renderChart('chart1', '新入生ご本人様の合計', ['合計'], [data.students_total]);
+            renderChart('chart2', '保護者の方の合計', ['合計'], [data.parents_total]);
+            renderChart('chart3', '説明会の満足度', ['平均'], [data.satisfaction]);
+            renderChart('chart4', '新入生ご本人様の満足度', ['平均'], [data.satisfaction_students]);
+            renderChart('chart5', '保護者の方の満足度', ['平均'], [data.satisfaction_parents]);
+            renderChart('chart6', '説明会の所要時間', ['平均'], [data.fell_time]);
+            renderChart('chart7', '新入生ご本人様の所要時間', ['平均'], [data.fell_time_students]);
+            renderChart('chart8', '保護者の方の所要時間', ['平均'], [data.fell_time_parents]);
         }
     } catch (error) {
         console.error('通信エラー：', error);

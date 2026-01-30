@@ -2,26 +2,42 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>データ集計グラフ</title>
+    <title>データ集計ツール</title>
+    <link rel="stylesheet" href="/static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>データ集計ツール</h1>
-    <input type="file" id="select_file" accept=".csv, .xlsx">
-    <button onclick="uploadData()">集計してグラフ表示</button>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="input-section">
+                <label>ファイルパス参照</label>
+                <input type="file" id="select_file" accept=".csv, .xlsx">
+            </div>
 
-    <div style="width: 80%; margin: 20px auto;">
-        <!-- Chart.jsは <canvas> タグの中にグラフを描画します。 -->
-        <canvas id="students_total_chart"></canvas>
-        <canvas id="parents_total_chart"></canvas>
-        <canvas id="satisfaction_chart"></canvas>
-        <canvas id="satisfaction_students_chart"></canvas>
-        <canvas id="satisfaction_parents_chart"></canvas>
-        <canvas id="fell_time_chart"></canvas>
-        <canvas id="fell_time_students_chart"></canvas>
-        <canvas id="fell_time_parents_chart"></canvas>
+            <div class="input-section">
+                <label>テキスト入力欄</label>
+                <input type="text" placeholder="キーワード入力">
+            </div>
+
+            <div class="display-section">
+                <p>新入生：<span id="display_students">0</span>人</p>
+                <p>保護者：<span id="display_parents">0</span>人</p>
+            </div>
+
+            <button class="btn-primary" onclick="uploadData()">出力ボタン</button>
+        </aside>
+
+        <main class="main-view">
+            <div class="chart-grid">
+                <div class="chart-container"><canvas id="chart1"></canvas></div>
+                <div class="chart-container"><canvas id="chart2"></canvas></div>
+                <div class="chart-container"><canvas id="chart3"></canvas></div>
+                <div class="chart-container"><canvas id="chart4"></canvas></div>
+                <div class="chart-container"><canvas id="chart5"></canvas></div>
+                <div class="chart-container"><canvas id="chart6"></canvas></div>
+            </div>
+        </main>
     </div>
-
-    <script src="/static/main.js"></script>
+    <script src="/static/js/main.js"></script>
 </body>
 </html>
