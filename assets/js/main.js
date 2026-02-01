@@ -16,6 +16,7 @@ async function uploadData() {
         });
 
         const data = await response.json();
+        console.log("サーバーからの生データ:", data);
 
         if (data.status === 'success') {
             // テキスト表示部分
@@ -54,21 +55,38 @@ async function uploadData() {
                     color: 'rgba(255, 99, 132, 0.5)' // 明るいピンク
                 }
             ]);
-            renderChart('chart3', ['平均'], [
+            renderChart('chart3', data.time_labels, [
                 {
                     label: '全体', 
-                    data: [data.feel_time],
+                    data: data.time_data_all,
                     color: 'rgba(255, 206, 86, 0.5)' // 明るいイエロー
                 },
                 {
                     label: '新入生', 
-                    data: [data.feel_time_students],
+                    data: data.time_data_students,
                     color: 'rgba(54, 162, 235, 0.5)' // 明るいブルー
                 },
                 {
                     label: '保護者', 
-                    data: [data.feel_time_parents],
+                    data: data.time_data_parents,
                     color: 'rgba(255, 159, 64, 0.5)' // 明るいオレンジ
+                }
+            ]);
+            renderChart('chart4', data.good_point_labels, [
+                {
+                    label: '全体', 
+                    data: data.good_point_data_all,
+                    color: 'rgba(75, 192, 192, 0.5)' // 明るいエメラルド
+                },
+                {
+                    label: '新入生', 
+                    data: data.good_point_data_students,
+                    color: 'rgba(153, 102, 255, 0.5)' // 明るいパープル
+                },
+                {
+                    label: '保護者',
+                    data: data.good_point_data_parents,
+                    color: 'rgba(255, 99, 132, 0.5)' // 明るいピンク
                 }
             ]);
         }
@@ -79,17 +97,18 @@ async function uploadData() {
 }
 
 // グラフ描画用の関数（引数を整理しました）
-function renderChart(canvasId, xLabels, dataConfigs) {
+// main.js の renderChart 関数をこれに差し替えてみてください
+function renderChart(canvasId, xLabels, dataConfigs) { // ← 第3引数が dataConfigs になっているか？
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     
-    const ctx = canvas.getContext('2d'); // ここを ctx に統一
+    const ctx = canvas.getContext('2d');
     
     if (charts[canvasId]) {
         charts[canvasId].destroy();
     }
 
-    // datasets を dataConfigs から作成
+    // ここで dataConfigs を使って datasets を作ります
     const datasets = dataConfigs.map(config => ({
         label: config.label,
         data: config.data,
@@ -100,17 +119,13 @@ function renderChart(canvasId, xLabels, dataConfigs) {
     charts[canvasId] = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: xLabels, // x軸のラベル
-            datasets: datasets // 複数の棒データ
+            labels: xLabels,
+            datasets: datasets
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+            scales: { y: { beginAtZero: true } }
         }
     });
 }
